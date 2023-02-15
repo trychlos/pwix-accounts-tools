@@ -52,6 +52,6 @@ export class acConf extends pwixOptions.Options {
      * @returns {String}
      */
     preferredLabel( value ){
-        return this.getset_String_Fn_Object( 'preferredLabel', value, { default: defaults.common.preferredLabel, ref: acConf.Labels });
+        return this.getset_String_Fn_Object( 'preferredLabel', value, { default: defaults.conf.preferredLabel, ref: acConf.Labels });
     }
 }

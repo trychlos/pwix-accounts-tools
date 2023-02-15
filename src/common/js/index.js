@@ -5,3 +5,4 @@
 import './config.js';
 import './constants.js';
 import './defaults.js';
+import './functions.js';
