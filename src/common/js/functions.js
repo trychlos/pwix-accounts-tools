@@ -18,20 +18,53 @@ pwixAccountsTools = {
         },
 
         /**
-         * @summary 
-         *  either a username or an email address
-         *  depending of the fields required in the global conf
-         *  of the field availability in the user record
-         *  and of the user's preference
          * @locus Anywhere
-         * @param {Object} user the user record got the database
+         * @param {Object} user the user record got from the database
+         * @param {String} email the email address to be examined
+         * @returns {Boolean} whether the (first) email address has been verified
+         */
+        isEmailVerified( user, email ){
+            return user ? ( user.emails[0].verified ) : false;
+        },
+
+        /**
+         * @locus Anywhere
+         * @param {String} id the user identifier
          * @param {String} preferred the optional user preference, either AC_USERNAME or AC_EMAIL_ADDRESS,
          *  defaulting to the configured value.
-         * @returns: a new ReactiveVar which will eventually contain:
+         * @returns {ReactiveVar} a new ReactiveVar which will eventually contain:
          *  - label: the label to preferentially use when referring to the user
          *  - origin: whether it is a AC_USERNAME or a AC_EMAIL_ADDRESS
          */
-        preferredLabel( user, preferred ){
+        preferredLabelById( id, preferred ){
+            let result = new ReactiveVar({
+                label: id,
+                origin: 'ID'
+            });
+            pwixAccountsTools.identity( id )
+                .then(( user ) => {
+                    if( user ){
+                        result.set( pwixAccountsTools.preferredLabelByDoc( user, preferred ));
+                        return Promise.resolve( true );
+                    }
+                    console.error( 'id='+id, 'user not found' );
+                    return Promise.resolve( false );
+                });
+            return result;
+        },
+
+        /**
+         * @summary returns either a username or an email address
+         *  depending of the fields required in the global configuration, of the field availability in the user provided document and of the specified preference
+         * @locus Anywhere
+         * @param {Object} user the user document got from the database
+         * @param {String} preferred an optional preference, either AC_USERNAME or AC_EMAIL_ADDRESS,
+         *  defaulting to the configured value.
+         * @returns: an object:
+         *  - label: the label to preferentially use when referring to the user
+         *  - origin: whether it was a AC_USERNAME or a AC_EMAIL_ADDRESS
+         */
+        preferredLabelByDoc( user, preferred ){
             let mypref = preferred;
             if( !mypref || !acConf.Labels.includes( mypref )){
                 mypref = pwixAccountsTools.opts().preferredLabel();
@@ -54,32 +87,6 @@ pwixAccountsTools = {
                 result = { label: user.username, origin: AC_USERNAME };
             }
             //console.log( 'mypref='+mypref, 'id='+user._id, 'result', result );
-            return result;
-        },
-
-        /**
-         * @locus Anywhere
-         * @param {String} id the user identifier
-         * @param {String} preferred the optional user preference, either AC_USERNAME or AC_EMAIL_ADDRESS,
-         *  defaulting to the configured value.
-         * @returns: a new ReactiveVar which will eventually contain:
-         *  - label: the label to preferentially use when referring to the user
-         *  - origin: whether it is a AC_USERNAME or a AC_EMAIL_ADDRESS
-         */
-        preferredLabelById( id, preferred ){
-            let result = new ReactiveVar({
-                label: id,
-                origin: 'ID'
-            });
-            pwixAccountsTools.identity( id )
-                .then(( user ) => {
-                    if( user ){
-                        result.set( pwixAccountsTools.preferredLabel( user, preferred ));
-                        return Promise.resolve( true );
-                    }
-                    console.error( 'id='+id, 'user not found' );
-                    return Promise.resolve( false );
-                });
             return result;
         }
     }
