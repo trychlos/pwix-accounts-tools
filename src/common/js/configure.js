@@ -19,7 +19,7 @@ AccountsTools._opts = null;
 AccountsTools.configure = function( o ){
     if( o && _.isObject( o )){
         _.merge( AccountsTools._conf, AccountsTools._defaults.conf, o );
-        AccountsTools._opts.baseOpt_set( AccountsTools._conf );
+        AccountsTools._opts.base_set( AccountsTools._conf );
         // be verbose if asked for
         if( AccountsTools.opts().verbosity() & AC_VERBOSE_CONFIGURE ){
             console.log( 'pwix:accounts-tools configure() with', o, 'building', AccountsTools._conf );

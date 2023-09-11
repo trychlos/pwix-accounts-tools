@@ -9,9 +9,7 @@ Package.describe({
 Package.onUse( function( api ){
     configure( api );
     api.export([
-        'AccountsTools',
-        'AC_USERNAME',
-        'AC_EMAIL_ADDRESS'
+        'AccountsTools'
     ]);
     api.mainModule( 'src/client/js/index.js', 'client' );
     api.mainModule( 'src/server/js/index.js', 'server' );
