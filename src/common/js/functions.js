@@ -4,7 +4,7 @@
 
 import { ReactiveVar } from 'meteor/reactive-var';
 
-import { acConf } from '../classes/ac_conf.class.js';
+import { acOptions } from '../classes/ac_options.class.js';
 
 AccountsTools = {
     ...AccountsTools,
@@ -66,7 +66,7 @@ AccountsTools = {
          */
         preferredLabelByDoc( user, preferred ){
             let mypref = preferred;
-            if( !mypref || !acConf.Labels.includes( mypref )){
+            if( !mypref || !acOptions.Labels.includes( mypref )){
                 mypref = AccountsTools.opts().preferredLabel();
             }
             let result = { label: user._id, origin: 'ID' };

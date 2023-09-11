@@ -29,7 +29,7 @@ function configure( api ){
     api.use( 'deanius:promise' );
     api.use( 'ecmascript' );
     api.use( 'mongo' );
-    api.use( 'pwix:options@2.0.0' );
+    api.use( 'pwix:options@2.1.0' );
     api.use( 'reactive-var' );
     api.use( 'tmeasday:check-npm-versions@1.0.2', 'server' );
 }

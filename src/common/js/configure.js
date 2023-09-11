@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 
-import { acConf } from '../classes/ac_conf.class.js';
+import { acOptions } from '../classes/ac_options.class.js';
 
 AccountsTools._conf = {};
 AccountsTools._opts = null;
@@ -32,11 +32,11 @@ AccountsTools.configure = function( o ){
 /**
  * @summarry Runtime configuration getter
  * @locus Anywhere
- * @returns {acConf} the runtime configuration object
+ * @returns {acOptions} the runtime configuration object
  */
 AccountsTools.opts = function(){
     return AccountsTools._opts;
 };
 
 _.merge( AccountsTools._conf, AccountsTools._defaults.conf );
-AccountsTools._opts = new acConf( AccountsTools._conf );
+AccountsTools._opts = new acOptions( AccountsTools._conf );

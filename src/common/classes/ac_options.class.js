@@ -8,7 +8,7 @@ import '../js/constants.js';
 
 import { Options } from 'meteor/pwix:options';
 
-export class acConf extends Options.BaseOpt {
+export class acOptions extends Options.Base {
 
     // static data
     //
@@ -39,7 +39,7 @@ export class acConf extends Options.BaseOpt {
      * In some case where the expected value is a string, the base class also can accept an object with 'i18n' key.
      * All options are accepted as long as the corresponding getter/setter method exists in this derived class.
      * 
-     * @returns {acConf}
+     * @returns {acOptions}
      */
     constructor( options ){
         super( options );
@@ -52,6 +52,6 @@ export class acConf extends Options.BaseOpt {
      * @returns {String}
      */
     preferredLabel( value ){
-        return this.baseOpt_gsStringObjectFn( 'preferredLabel', value, { default: AccountsTools._defaults.conf.preferredLabel, ref: acConf.Labels });
+        return this.base_gsStringObjectFn( 'preferredLabel', value, { default: AccountsTools._defaults.conf.preferredLabel, ref: acOptions.Labels });
     }
 }

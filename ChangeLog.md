@@ -1,8 +1,12 @@
-# pwix:accounts-tools - ChangeLog
+# pwix:accounts-tools
 
-| Version | Release    | Content |
-| ---:    | :---       | :---    |
-| 1.0.0   | xxxxxxxxxx | Initial release |
+## ChangeLog
+
+### 1.0.0
+
+    Release date:
+
+    -
 
 ---
 P. Wieser
