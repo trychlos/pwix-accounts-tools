@@ -88,6 +88,18 @@ pwixAccountsTools = {
             }
             //console.log( 'mypref='+mypref, 'id='+user._id, 'result', result );
             return result;
+        },
+
+        /**
+         * @summary Update the user document
+         * @locus Anywhere
+         * @param {String} userId the user identifier
+         * @param {String} name the (maybe dotted) setting name
+         * @param {String} value the value to be set
+         * @returns {Promise} which will eventually resolve with the operation result
+         */
+        writeData( userId, name, value ){
+            return Meteor.isClient ? Meteor.callPromise( 'pwixAccountsTools.writeData', userId, name, value ) : Promise.resolve( Meteor.users.find({ _id: id }));
         }
     }
 };

@@ -5,4 +5,5 @@
 import '../../common/js/index.js';
 
 import './check_npms.js';
+import './functions.js';
 import './methods.js';

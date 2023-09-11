@@ -9,6 +9,7 @@ Meteor.publish( null, function(){
 });
 */
 
+/*
 // a special publication which let a selection per email
 //  just provide objects { id, email, verified }
 Meteor.publish( 'pwiAccounts.byEmail', function(){
@@ -44,3 +45,4 @@ Meteor.publish( 'pwiAccounts.byEmail', function(){
 
     self.ready();
 });
+*/
