@@ -6,15 +6,15 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 import { acConf } from '../classes/ac_conf.class.js';
 
-pwixAccountsTools = {
-    ...pwixAccountsTools,
+AccountsTools = {
+    ...AccountsTools,
     ...{
         /**
          * @locus Anywhere
          * @returns {Promise} which resolves to the specified user account
          */
         identity( id ){
-            return Meteor.isClient ? Meteor.callPromise( 'pwixAccountsTools.byId', id ) : Promise.resolve( Meteor.users.find({ _id: id }));
+            return Meteor.isClient ? Meteor.callPromise( 'AccountsTools.byId', id ) : Promise.resolve( Meteor.users.find({ _id: id }));
         },
 
         /**
@@ -41,10 +41,10 @@ pwixAccountsTools = {
                 label: id,
                 origin: 'ID'
             });
-            pwixAccountsTools.identity( id )
+            AccountsTools.identity( id )
                 .then(( user ) => {
                     if( user ){
-                        result.set( pwixAccountsTools.preferredLabelByDoc( user, preferred ));
+                        result.set( AccountsTools.preferredLabelByDoc( user, preferred ));
                         return Promise.resolve( true );
                     }
                     console.error( 'id='+id, 'user not found' );
@@ -67,7 +67,7 @@ pwixAccountsTools = {
         preferredLabelByDoc( user, preferred ){
             let mypref = preferred;
             if( !mypref || !acConf.Labels.includes( mypref )){
-                mypref = pwixAccountsTools.opts().preferredLabel();
+                mypref = AccountsTools.opts().preferredLabel();
             }
             let result = { label: user._id, origin: 'ID' };
 
@@ -99,7 +99,7 @@ pwixAccountsTools = {
          * @returns {Promise} which will eventually resolve with the operation result
          */
         writeData( userId, name, value ){
-            return Meteor.isClient ? Meteor.callPromise( 'pwixAccountsTools.writeData', userId, name, value ) : Promise.resolve( Meteor.users.find({ _id: id }));
+            return Meteor.isClient ? Meteor.callPromise( 'AccountsTools.writeData', userId, name, value ) : Promise.resolve( Meteor.users.find({ _id: id }));
         }
     }
 };

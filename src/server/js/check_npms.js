@@ -8,4 +8,7 @@ if( false ){
 }
 
 checkNpmVersions({
-}, 'pwix:accounts-tools' );
+    'lodash': '^4.17.0'
+},
+    'pwix:accounts-tools'
+);

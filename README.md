@@ -14,39 +14,70 @@ Just add the package to your application, and enjoy!
     meteor add pwix:accounts-tools
 ```
 
-## Configuration
+## Configuring
 
-The package MUST be configured before Meteor.startup(), so at the top of the application code.
-The configuration MUST be done in identical terms **both** in client and in server sides.
+The package's behavior can be configured through a call to the `AccountsTools.configure()` method, with just a single javascript object argument, which itself should only contains the options you want override.
 
-Parameters are:
+Known configuration options are:
 
-<table>
-<tr><td style="vertical-align:top;">
-preferredLabel
-</td><td>
-How to preferentially refer to a user when both options are available:
-<ul>
-<li>AC_USERNAME</li>
-<li>AC_EMAIL_ADDRESS</li>
- </ul>
-A function can be provided by the application for this parm. The function will be called without argument and MUST return one of the accepted values.<br />
-Default value is AC_EMAIL_ADDRESS, though the actually displayed label heavily depends of the runtime configuration as we try to always display something.</b>
-</td></tr>
-</table>
+- `preferredLabel`
+
+    When not explicitely specified, which label choose to qualify a user account? Following values are accepted:
+
+    - `AccountsTools.C.PreferredLabel.USERNAME`
+    - `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`
+
+    A function can be provided by the application for this parm. The function will be called without argument and MUST return one of the accepted values.
+
+    Defaults to `AccountsTools.C.preferredLabel.EMAIL_ADDRESS`, though the actually displayed label heavily depends of the runtime configuration as we try to always display something.
+
+- `verbosity`
+
+    The verbosity level as:
+    
+    - `AccountsTools.C.Verbose.NONE`
+    
+    or an OR-ed value of integer constants:
+
+    - `AccountsTools.C.Verbose.CONFIGURE`
+
+    A function can be provided by the application for this parm. The function will be called without argument and MUST return a suitable value.
+    
+    Defaults to `AccountsTools.C.Verbose.NONE`.
+
+Please note that `AccountsTools.configure()` method should be called in the same terms both in client and server sides.
+
+Remind too that Meteor packages are instanciated at application level. They are so only configurable once, or, in other words, only one instance has to be or can be configured. Addtionnal calls to `AccountsTools.configure()` will just override the previous one. You have been warned: **only the application should configure a package**.
 
 ## What does it provide ?
 
-### An exported object
+### `AccountsTools`
 
-`pwixAccountsTools`
+The globally exported object.
+
+### Methods
+
+#### `AccountsTools.configure( o )`
+
+The configuration of the package.
+
+See [Configuring](#configuring).
+
+#### `AccountsTools.opts()`
+
+A getter which returns the current options.
 
 ### Constants
 
-- AC_USERNAME
-- AC_EMAIL_ADDRESS
+#### When choosing the preferred label
 
-#### Verbosity of the package
+- `AccountsTools.C.PreferredLabel.USERNAME`
+- `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`
+
+#### Verbosity level
+
+- `AccountsTools.C.Verbose.NONE`
+- `AccountsTools.C.Verbose.CONFIGURE`
 
 ### Blaze components
 
@@ -93,27 +124,13 @@ Roles have to be declared as an object with a top single key 'roles'
     }
 ```
 
-### Methods
-
-`pwiRoles.current()`
-
-A reactive data source which returns on the client the roles of the currently logged-in user as an object:
-```
-- id        {String}    the current user identifier
-- all       {Array}     all the roles, either directly or indirectly set
-- direct    {Array}     only the directly attributed top roles in the hierarchy (after havng removed indirect ones)
-```
-
 ## NPM peer dependencies
 
 In accordance with advices from [the Meteor Guide](https://guide.meteor.com/writing-atmosphere-packages.html#npm-dependencies), we do not hardcode NPM dependencies in `package.js`. Instead we check npm versions of installed packages at runtime, on server startup, in development environment.
 
-Dependencies as of v 1.1.0:
+Dependencies as of v 1.0.0:
 ```
-    '@popperjs/core': '^2.11.6',
-    bootstrap: '^5.2.1',
-    jstree: '^3.3.12',
-    uuid: '^9.0.0'
+    'lodash': '^4.17.0'
 ```
 Each of these dependencies should be installed at application level:
 ```
@@ -122,7 +139,7 @@ Each of these dependencies should be installed at application level:
 
 ## Translations
 
-New and updated translations are willingly accepted, and more than welcome. Just be kind enough to submit a PR on the [Github repository](https://github.com/trychlos/pwix-roles/pulls).
+New and updated translations are willingly accepted, and more than welcome. Just be kind enough to submit a PR on the [Github repository](https://github.com/trychlos/pwix-accounts-tools/pulls).
 
 ---
 P. Wieser

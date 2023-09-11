@@ -9,7 +9,7 @@ Package.describe({
 Package.onUse( function( api ){
     configure( api );
     api.export([
-        'pwixAccountsTools',
+        'AccountsTools',
         'AC_USERNAME',
         'AC_EMAIL_ADDRESS'
     ]);
@@ -28,8 +28,8 @@ function configure( api ){
     api.versionsFrom( '2.9.0' );
     api.use( 'deanius:promise' );
     api.use( 'ecmascript' );
-    api.use( 'mongo', 'server' );
-    api.use( 'pwix:options' );
+    api.use( 'mongo' );
+    api.use( 'pwix:options@2.0.0' );
     api.use( 'reactive-var' );
     api.use( 'tmeasday:check-npm-versions@1.0.2', 'server' );
 }

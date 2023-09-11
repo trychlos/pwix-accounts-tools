@@ -2,13 +2,9 @@
  * pwix:accounts-tools/src/common/js/defaults.js
  */
 
-defaults = {
+AccountsTools._defaults = {
     conf: {
-        preferredLabel: AC_EMAIL_ADDRESS
+        preferredLabel: AccountsTools.C.PreferredLabel.EMAIL_ADDRESS,
+        verbosity: AccountsTools.C.Verbose.NONE
     }
-};
-
-pwixAccountsTools.conf = {
-    ...pwixAccountsTools.conf,
-    ...defaults.conf
 };

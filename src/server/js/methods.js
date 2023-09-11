@@ -32,18 +32,18 @@ _cleanUser = function ( user ){
 
 Meteor.methods({
     // find a user by his internal (mongo) identifier
-    'pwixAccountsTools.byId'( id ){
+    'AccountsTools.byId'( id ){
         const res = Meteor.users.findOne({ _id: id });
         if( res ){
-            //console.log( 'pwixAccountsTools.byId' );
+            //console.log( 'AccountsTools.byId' );
             return _cleanUser( Meteor.users.findOne({ _id: id }));
         }
-        console.error( 'pwixAccountsTools.byId', id, 'not found' );
+        console.error( 'AccountsTools.byId', id, 'not found' );
         return res;
     },
 
     // update the named field of the user data
-    'pwixAccountsTools.writeData'( id, name, value ){
-        return pwixAccountsTools.server.fn.writeData( id, name, value );
+    'AccountsTools.writeData'( id, name, value ){
+        return AccountsTools.server.fn.writeData( id, name, value );
     }
 });

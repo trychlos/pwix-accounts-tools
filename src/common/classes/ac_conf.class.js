@@ -6,17 +6,17 @@
 
 import '../js/constants.js';
 
-import { pwixOptions } from 'meteor/pwix:options';
+import { Options } from 'meteor/pwix:options';
 
-export class acConf extends pwixOptions.Options {
+export class acConf extends Options.BaseOpt {
 
     // static data
     //
 
     // possible user label
     static Labels = [
-        AC_USERNAME,
-        AC_EMAIL_ADDRESS
+        AccountsTools.C.PreferredLabel.USERNAME,
+        AccountsTools.C.PreferredLabel.EMAIL_ADDRESS
     ];
 
     // private data
@@ -35,7 +35,7 @@ export class acConf extends pwixOptions.Options {
      * Constructor
      * @param {Object} options the options to be managed
      * 
-     * The acOptions base class takes care of managing the known options, either as a value, or as a function which return a value.
+     * The Options base class takes care of managing the known options, either as a value, or as a function which return a value.
      * In some case where the expected value is a string, the base class also can accept an object with 'i18n' key.
      * All options are accepted as long as the corresponding getter/setter method exists in this derived class.
      * 
@@ -52,6 +52,6 @@ export class acConf extends pwixOptions.Options {
      * @returns {String}
      */
     preferredLabel( value ){
-        return this.getset_String_Fn_Object( 'preferredLabel', value, { default: defaults.conf.preferredLabel, ref: acConf.Labels });
+        return this.baseOpt_gsStringObjectFn( 'preferredLabel', value, { default: AccountsTools._defaults.conf.preferredLabel, ref: acConf.Labels });
     }
 }
