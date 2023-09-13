@@ -12,8 +12,8 @@
  *                  before the list of users
  *                  defaults to none
  * 
- *  - preferred     AC_USERNAME|AC_EMAIL_ADDRESS
- *                  defaulting to AC_EMAIL_ADDRESS (or the one which is configured)
+ *  - preferred     AccountsTools.C.PreferredLabel.USERNAME|AccountsTools.C.PreferredLabel.EMAIL_ADDRESS
+ *                  defaulting to AccountsTools.C.PreferredLabel.EMAIL_ADDRESS (or the one which is configured)
  */
 
 import { pwixI18n as i18n } from 'meteor/pwix:i18n';
@@ -43,7 +43,7 @@ Template.acSelect.onCreated( function(){
 
         // get a translated label
         i18n( label ){
-            return i18n.label( AC_I18N, 'select.'+label );
+            return i18n.label( AccountsTools.C.PreferredLabel.I18N, 'select.'+label );
         },
 
         // update the input selection reactive var on each change

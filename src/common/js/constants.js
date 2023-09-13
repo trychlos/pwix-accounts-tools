@@ -13,6 +13,7 @@ AccountsTools.C = {
     // verbosity levels
     Verbose: {
         NONE:      0,
-        CONFIGURE: 0x01 << 0
+        CONFIGURE: 0x01 << 0,
+        SERVERDB:  0x01 << 1,
     }
 };

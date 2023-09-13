@@ -27,7 +27,7 @@ Known configuration options are:
     - `AccountsTools.C.PreferredLabel.USERNAME`
     - `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`
 
-    A function can be provided by the application for this parm. The function will be called without argument and MUST return one of the accepted values.
+    A function can be provided by the application for this parm. The function will be called without argument and must return one of the accepted values.
 
     Defaults to `AccountsTools.C.preferredLabel.EMAIL_ADDRESS`, though the actually displayed label heavily depends of the runtime configuration as we try to always display something.
 
@@ -42,6 +42,10 @@ Known configuration options are:
     - `AccountsTools.C.Verbose.CONFIGURE`
 
     A function can be provided by the application for this parm. The function will be called without argument and MUST return a suitable value.
+
+    - `AccountsTools.C.Verbose.SERVERDB`
+
+    Trace results from server accesses to the database.
     
     Defaults to `AccountsTools.C.Verbose.NONE`.
 
@@ -67,6 +71,22 @@ See [Configuring](#configuring).
 
 A getter which returns the current options.
 
+#### `AccountsTools.preferredLabel( id|user [, preferred] )`
+
+    Returns the preferred label for this user.
+
+    The application may have ask for either a username or an email address, or both.
+    When time comes to display an identification string to the user, we need to choose between the username and the email address (if both apply), depending of the preference of the caller.
+
+    The user may be identified by its `_id` string, or by the user document.
+
+    The caller preference is optional, may be one the following values:
+
+    - `AccountsTools.C.PreferredLabel.USERNAME`
+    - `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`
+
+    Default is the configured value.
+
 ### Constants
 
 #### When choosing the preferred label
@@ -78,6 +98,7 @@ A getter which returns the current options.
 
 - `AccountsTools.C.Verbose.NONE`
 - `AccountsTools.C.Verbose.CONFIGURE`
+- `AccountsTools.C.Verbose.SERVERDB`
 
 ### Blaze components
 

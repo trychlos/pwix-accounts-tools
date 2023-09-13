@@ -54,4 +54,13 @@ export class acOptions extends Options.Base {
     preferredLabel( value ){
         return this.base_gsStringObjectFn( 'preferredLabel', value, { default: AccountsTools._defaults.conf.preferredLabel, ref: acOptions.Labels });
     }
+
+    /**
+     * Getter/Setter
+     * @param {Integer|Function} value verbosity level
+     * @returns {String}
+     */
+    verbosity( value ){
+        return this.base_gsIntegerFn( 'verbosity', value, { default: AccountsTools._defaults.conf.verbosity, ref: acOptions.Labels });
+    }
 }
