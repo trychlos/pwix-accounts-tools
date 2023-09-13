@@ -22,6 +22,9 @@ AccountsTools._userDoc = function( id ){
  * @param {Object} the result object
  */
 AccountsTools._preferredLabelById = function( id, preferred, result ){
+    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
+        console.log( 'pwix:accounts-tools preferredLabelById() id='+id, 'preferred='+preferred, 'result=', result );
+    }
     if( Meteor.isClient ){
         return AccountsTools._userDoc( id )
             .then(( user ) => {
@@ -48,6 +51,10 @@ AccountsTools._preferredLabelById = function( id, preferred, result ){
  *  - origin: whether it was a AccountsTools.C.PreferredLabel.USERNAME or a AccountsTools.C.PreferredLabel.EMAIL_ADDRESS
  */
 AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
+    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
+        console.log( 'pwix:accounts-tools preferredLabelByDoc() user=', user, 'preferred='+preferred, 'result=', result );
+    }
+
     let mypref = preferred;
     if( !mypref || !Object.keys( AccountsTools.C.PreferredLabel ).includes( mypref )){
         mypref = AccountsTools.opts().preferredLabel();
@@ -60,11 +67,15 @@ AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
         result = { label: user.emails[0].address, origin: AccountsTools.C.PreferredLabel.EMAIL_ADDRESS };
 
     } else if( user.username ){
-        console.log( 'fallback to username while preferred is', mypref );
+        if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
+            console.log( 'pwix:accounts-tools fallback to username while preferred is', mypref );
+        }
         result = { label: user.username, origin: AccountsTools.C.PreferredLabel.USERNAME };
 
     } else if( user.emails[0].address ){
-        console.log( 'fallback to email address name while preferred is', mypref );
+        if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
+            console.log( 'pwix:accounts-tools fallback to email address name while preferred is', mypref );
+        }
         const words = user.emails[0].address.split( '@' );
         result = { label: words[0], origin: AccountsTools.C.PreferredLabel.EMAIL_ADDRESS };
     }
@@ -85,11 +96,18 @@ AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
  *    > origin: the origin, which may be 'ID' or AccountsTools.C.PreferredLabel.USERNAME or AccountsTools.C.PreferredLabel.EMAIL_ADDRESS
  */
 AccountsTools.preferredLabel = function( arg, preferred=null ){
+    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
+        console.log( 'pwix:accounts-tools preferredLabel() id='+id, 'preferred='+preferred );
+    }
     const id = _.isString( arg ) ? arg : arg._id;
     let result = {
         label: id,
         origin: 'ID'
     };
     const fn = _.isString( arg ) ? 'ById' : 'ByDoc';
-    return AccountsTools['_preferredLabel'+fn]( arg, preferred || AccountsTools.opts().preferredLabel(), result );
+    const res = AccountsTools['_preferredLabel'+fn]( arg, preferred || AccountsTools.opts().preferredLabel(), result );
+    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
+        console.log( 'pwix:accounts-tools preferredLabel() resturns', res );
+    }
+    return res;
 };

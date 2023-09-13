@@ -43,10 +43,14 @@ Known configuration options are:
 
     A function can be provided by the application for this parm. The function will be called without argument and MUST return a suitable value.
 
+    - `AccountsTools.C.Verbose.PREFERREDLABEL`
+
+    Trace the `AccountsTools.preferredLabel()` operations and fallbacks.
+
     - `AccountsTools.C.Verbose.SERVERDB`
 
     Trace results from server accesses to the database.
-    
+
     Defaults to `AccountsTools.C.Verbose.NONE`.
 
 Please note that `AccountsTools.configure()` method should be called in the same terms both in client and server sides.
@@ -99,6 +103,7 @@ A getter which returns the current options.
 - `AccountsTools.C.Verbose.NONE`
 - `AccountsTools.C.Verbose.CONFIGURE`
 - `AccountsTools.C.Verbose.SERVERDB`
+- `AccountsTools.C.Verbose.PREFERREDLABEL`
 
 ### Blaze components
 
