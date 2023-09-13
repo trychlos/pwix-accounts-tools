@@ -10,7 +10,7 @@
 
 |   Id | Date       | Description and comment(s) |
 | ---: | :---       | :---                       |
-|    1 |  |  |
+|    1 | 2023- 9-13 | make sure that email address is unique inside of users collection ? |
 
 ---
 ## Done

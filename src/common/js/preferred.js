@@ -5,42 +5,6 @@
 import _ from 'lodash';
 
 /*
- * @locus Anywhere
- * @returns {Object}
- *  - on client side, a Promise which resolves to the specified user document
- *  - on server side, the user document itself
- */
-AccountsTools._userDoc = function( id ){
-    return Meteor.isClient ? Meteor.callPromise( 'AccountsTools.byId', id ) : AccountsTools.server.byId( id );
-};
-
-/*
- * @summary Returns the preferred label for the user
- * @locus Anywhere
- * @param {String} arg the user identifier
- * @param {String} preferred the optional caller preference
- * @param {Object} the result object
- */
-AccountsTools._preferredLabelById = function( id, preferred, result ){
-    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
-        console.log( 'pwix:accounts-tools preferredLabelById() id='+id, 'preferred='+preferred, 'result=', result );
-    }
-    if( Meteor.isClient ){
-        return AccountsTools._userDoc( id )
-            .then(( user ) => {
-                if( user ){
-                    return AccountsTools._preferredLabelByDoc( user, preferred );
-                }
-                console.error( 'id='+id, 'user not found' );
-                return result;
-            });
-    } else {
-        const user = AccountsTools._userDoc( id );
-        return user ? AccountsTools._preferredLabelByDoc( user, preferred ) : result;
-    }
-};
-
-/*
  * @summary returns the preferred label for the user
  * @locus Anywhere
  * @param {Object} user the user document got from the database
@@ -83,6 +47,32 @@ AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
     return result;
 };
 
+/*
+ * @summary Returns the preferred label for the user
+ * @locus Anywhere
+ * @param {String} arg the user identifier
+ * @param {String} preferred the optional caller preference
+ * @param {Object} the result object
+ */
+AccountsTools._preferredLabelById = function( id, preferred, result ){
+    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
+        console.log( 'pwix:accounts-tools preferredLabelById() id='+id, 'preferred='+preferred, 'result=', result );
+    }
+    if( Meteor.isClient ){
+        return AccountsTools._userDoc( id )
+            .then(( user ) => {
+                if( user ){
+                    return AccountsTools._preferredLabelByDoc( user, preferred );
+                }
+                console.error( 'id='+id, 'user not found' );
+                return result;
+            });
+    } else {
+        const user = AccountsTools._userDoc( id );
+        return user ? AccountsTools._preferredLabelByDoc( user, preferred ) : result;
+    }
+};
+
 /**
  * @summary Returns the preferred label for the user
  * @locus Anywhere
@@ -104,10 +94,14 @@ AccountsTools.preferredLabel = function( arg, preferred=null ){
         label: id,
         origin: 'ID'
     };
-    const fn = _.isString( arg ) ? 'ById' : 'ByDoc';
-    const res = AccountsTools['_preferredLabel'+fn]( arg, preferred || AccountsTools.opts().preferredLabel(), result );
-    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
-        console.log( 'pwix:accounts-tools preferredLabel() resturns', res );
+    if( id && _.isString( id )){
+        const fn = _.isString( arg ) ? 'ById' : 'ByDoc';
+        result = AccountsTools['_preferredLabel'+fn]( arg, preferred || AccountsTools.opts().preferredLabel(), result );
+    } else {
+        throw new Meteor.Error( 'arg', 'incorrect argument' );
     }
-    return res;
+    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
+        console.log( 'pwix:accounts-tools preferredLabel() returns', result );
+    }
+    return result;
 };

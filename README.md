@@ -71,25 +71,55 @@ The configuration of the package.
 
 See [Configuring](#configuring).
 
+#### `AccountsTools.isEmailVerified( email )`
+
+As its name says.
+
+Searches the `users` collection for the specified email address, and returns an array of objects:
+
+- `id`: the user identifier who has this email address
+- `verified`: whether the email address is verified for this user
+
+NOTE: not this way is `accounts-base` make sure that email addresses are unique.
+
 #### `AccountsTools.opts()`
 
 A getter which returns the current options.
 
 #### `AccountsTools.preferredLabel( id|user [, preferred] )`
 
-    Returns the preferred label for this user.
+Returns the preferred label for this user.
 
-    The application may have ask for either a username or an email address, or both.
-    When time comes to display an identification string to the user, we need to choose between the username and the email address (if both apply), depending of the preference of the caller.
+The application may have ask for either a username or an email address, or both.
+When time comes to display an identification string to the user, we need to choose between the username and the email address (if both apply), depending of the preference of the caller.
 
-    The user may be identified by its `_id` string, or by the user document.
+The user may be identified by its `_id` string, or by the user document.
 
-    The caller preference is optional, may be one the following values:
+The caller preference is optional, may be one the following values:
 
-    - `AccountsTools.C.PreferredLabel.USERNAME`
-    - `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`
+- `AccountsTools.C.PreferredLabel.USERNAME`
+- `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`
 
-    Default is the configured value.
+Default is the configured value.
+
+The function returns:
+
+- on the client, a Promise which eventually resolves to the result
+
+- on the server, the result as an object with following keys:
+
+    - `label`: the computed preferred label
+    - `origin`: the origin, which may be `ID` if the account has not been found, or `AccountsTools.C.PreferredLabel.USERNAME` or `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`.
+
+#### `AccountsTools.writeData( id|user, set )`
+
+Update (do not create) a user document with the provided set.
+
+The function returns:
+
+- on the client, a Promise which eventually resolves to the result
+
+- on the server, the result Metoer.update() method.
 
 ### Constants
 

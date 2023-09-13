@@ -17,7 +17,7 @@ AccountsTools.server = {
             }
         } else {
             // either a code error or a user try to bypass our checks
-            throw new Meteor.Error( 'arg', 'incorect argument' );
+            throw new Meteor.Error( 'arg', 'incorrect argument' );
         }
         return res;
     },
@@ -51,15 +51,21 @@ AccountsTools.server = {
     },
 
     /**
-     * update user document
+     * update user document with provided values
      *  do not update updatedAt/updatedBy values as this is considered as pure user settings
      * @throws {Error} when user not found
      */
-    writeData( id, name, value ){
-        let object = {};
-        object[name] = value;
-        const res = Meteor.users.update({ _id: id }, { $set: object });
-        console.log( 'name='+name, 'value='+value, 'object', object, 'res', res );
+    writeData( id, set ){
+        let res = null;
+        if( id && _.isString( id )){
+            res = Meteor.users.update({ _id: id }, { $set: set });
+            if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
+                console.log( 'pwix:accounts-tools writeData('+id+')', res );
+            }
+        } else {
+            // either a code error or a user try to bypass our checks
+            throw new Meteor.Error( 'arg', 'incorrect argument' );
+        }
         return res;
     }
 };

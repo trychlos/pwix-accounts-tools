@@ -9,7 +9,7 @@ Meteor.methods({
     },
 
     // update the named field of the user data
-    'AccountsTools.writeData'( id, name, value ){
-        return AccountsTools.server.fn.writeData( id, name, value );
+    'AccountsTools.writeData'( id, set ){
+        return AccountsTools.server.writeData( id, set );
     }
 });
