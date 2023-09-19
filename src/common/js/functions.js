@@ -14,10 +14,8 @@ AccountsTools.isEmailVerified = function( user, email ){
 
 /*
  * @locus Anywhere
- * @returns {Object}
- *  - on client side, a Promise which resolves to the specified user document
- *  - on server side, the user document itself
+ * @returns {Promise} which resolves to the user document
  */
 AccountsTools._userDoc = function( id ){
-    return Meteor.isClient ? Meteor.callPromise( 'AccountsTools.byId', id ) : AccountsTools.server.byId( id );
+    return Meteor.isClient ? Meteor.callPromise( 'AccountsTools.byId', id ) : Promise.resolve( AccountsTools.server.byId( id ));
 };

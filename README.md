@@ -102,14 +102,12 @@ The caller preference is optional, may be one the following values:
 
 Default is the configured value.
 
-The function returns:
+The function returns a Promise which eventually resolves to an object with following keys:
 
-- on the client, a Promise which eventually resolves to the result
+- `label`: the computed preferred label
+- `origin`: the origin, which may be `ID` if the account has not been found, or `AccountsTools.C.PreferredLabel.USERNAME` or `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`.
 
-- on the server, the result as an object with following keys:
-
-    - `label`: the computed preferred label
-    - `origin`: the origin, which may be `ID` if the account has not been found, or `AccountsTools.C.PreferredLabel.USERNAME` or `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`.
+On server side, the function returns an alrealdy resolved Promise (rationale: have a common prototype on client and server sides).
 
 #### `AccountsTools.writeData( id|user, set )`
 

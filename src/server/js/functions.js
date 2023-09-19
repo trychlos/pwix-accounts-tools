@@ -19,6 +19,7 @@ AccountsTools.server = {
             // either a code error or a user try to bypass our checks
             throw new Meteor.Error( 'arg', 'incorrect argument' );
         }
+        console.debug( 'AccountsTools.server.byId', res );
         return res;
     },
 
