@@ -24,7 +24,7 @@ Package.onTest( function( api ){
 
 function configure( api ){
     api.versionsFrom( '2.9.0' );
-    api.use( 'deanius:promise' );
+    api.use( 'deanius:promise@3.1.0' );
     api.use( 'ecmascript' );
     api.use( 'mongo' );
     api.use( 'pwix:options@2.1.0' );
