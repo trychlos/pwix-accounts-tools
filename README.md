@@ -88,7 +88,12 @@ A getter which returns the current options.
 
 #### `AccountsTools.preferredLabel( id|user [, preferred] )`
 
-Returns the preferred label for this user.
+The function returns a Promise which eventually resolves to an object with following keys:
+
+- `label`: the computed preferred label
+- `origin`: the origin, which may be `ID` if the account has not been found, or `AccountsTools.C.PreferredLabel.USERNAME` or `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`.
+
+On server side, the function returns an alrealdy resolved Promise (rationale: have a common prototype on client and server sides).
 
 The application may have ask for either a username or an email address, or both.
 When time comes to display an identification string to the user, we need to choose between the username and the email address (if both apply), depending of the preference of the caller.
@@ -101,13 +106,6 @@ The caller preference is optional, may be one the following values:
 - `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`
 
 Default is the configured value.
-
-The function returns a Promise which eventually resolves to an object with following keys:
-
-- `label`: the computed preferred label
-- `origin`: the origin, which may be `ID` if the account has not been found, or `AccountsTools.C.PreferredLabel.USERNAME` or `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`.
-
-On server side, the function returns an alrealdy resolved Promise (rationale: have a common prototype on client and server sides).
 
 #### `AccountsTools.writeData( id|user, set )`
 
