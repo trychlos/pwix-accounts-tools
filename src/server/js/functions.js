@@ -8,6 +8,24 @@ AccountsTools.server = {
     /*
      * Returns the user document
      */
+    byEmail( email ){
+        let res = null;
+        if( email && _.isString( email )){
+            res = AccountsTools.server.cleanUser( Meteor.users.findOne({ 'emails.address': email }));
+            if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
+                console.log( 'pwix:accounts-tools byEmail('+email+')', res );
+            }
+        } else {
+            // either a code error or a user try to bypass our checks
+            throw new Meteor.Error( 'arg', 'incorrect argument' );
+        }
+        //console.debug( 'AccountsTools.server.byId', res );
+        return res;
+    },
+
+    /*
+     * Returns the user document
+     */
     byId( id ){
         let res = null;
         if( id && _.isString( id )){
@@ -19,7 +37,7 @@ AccountsTools.server = {
             // either a code error or a user try to bypass our checks
             throw new Meteor.Error( 'arg', 'incorrect argument' );
         }
-        console.debug( 'AccountsTools.server.byId', res );
+        //console.debug( 'AccountsTools.server.byId', res );
         return res;
     },
 

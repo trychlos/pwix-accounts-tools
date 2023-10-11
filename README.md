@@ -71,16 +71,15 @@ The configuration of the package.
 
 See [Configuring](#configuring).
 
-#### `AccountsTools.isEmailVerified( email )`
+#### `AccountsTools.isEmailVerified( email [, user] )`
 
 As its name says.
 
-Searches the `users` collection for the specified email address, and returns an array of objects:
+If the user document is provided, then returns a `Boolean` `true`|`false`.
 
-- `id`: the user identifier who has this email address
-- `verified`: whether the email address is verified for this user
+Else, retuns a Promise which will resolve to this same `Boolean` `true`|`false`.
 
-NOTE: not this way is `accounts-base` make sure that email addresses are unique.
+Please note that we do not search the `users` collection if a user document is provided. In this case, the result will be `false` if the user document is not the right one for this email address.
 
 #### `AccountsTools.opts()`
 
@@ -88,8 +87,11 @@ A getter which returns the current options.
 
 #### `AccountsTools.preferredLabel( id|user [, preferred] )`
 
-The function returns a Promise which eventually resolves to an object with following keys:
+The function returns:
+- either a `Promise` which eventually will resolve to the result object, if the method is called with a user identifier `id` (which must be the Mongo `user._id`),
+- or the result `Object` itself, if the method is called with a user document `user`.
 
+The result object has following keys:
 - `label`: the computed preferred label
 - `origin`: the origin, which may be `ID` if the account has not been found, or `AccountsTools.C.PreferredLabel.USERNAME` or `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`.
 
@@ -98,14 +100,16 @@ On server side, the function returns an alrealdy resolved Promise (rationale: ha
 The application may have ask for either a username or an email address, or both.
 When time comes to display an identification string to the user, we need to choose between the username and the email address (if both apply), depending of the preference of the caller.
 
-The user may be identified by its `_id` string, or by the user document.
-
 The caller preference is optional, may be one the following values:
 
 - `AccountsTools.C.PreferredLabel.USERNAME`
 - `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`
 
 Default is the configured value.
+
+#### `AccountsTools.preferredLabelRV( id|user [, preferred] )`
+
+The same method that above `AccountsTools.preferredLabel()`, but returns a `ReactiveVar` with the value of the result, or which will be set to the value of the result when the Promise will be resolved.
 
 #### `AccountsTools.writeData( id|user, set )`
 
@@ -130,51 +134,6 @@ The function returns:
 - `AccountsTools.C.Verbose.CONFIGURE`
 - `AccountsTools.C.Verbose.SERVERDB`
 - `AccountsTools.C.Verbose.PREFERREDLABEL`
-
-### Blaze components
-
-#### prView
-
-#### prEdit
-
-### Roles configuration
-
-Roles have to be declared as an object with a top single key 'roles'
-```
-    {
-        roles: {                                        mandatory topmost key of the configuration object
-            hierarchy: [                                description of the hierarchy as an array of role objects
-                {
-                    name: <name1>,                      a role object must have a name which uniquely identifies the role
-                    children: [                         a role object may have zero to many children, each of them being itself a role object
-                        {
-                            name: <name2>,
-                            children: [                 there is no limit to the count of recursivity levels of the children
-                                {
-                                    ...
-                                }
-                            ]
-                        }
-
-                    ]
-                },
-                {
-                    name: <name>,
-                    children: [
-
-                    ]
-                },
-                {
-                    ...
-                }
-            ],
-            aliases: [                                  one can define aliases, i.e. distinct names which are to be considered as same roles
-                [ <name1>, <name2>, ... ],
-                [ ... ]
-            ]
-        }
-    }
-```
 
 ## NPM peer dependencies
 
