@@ -4,7 +4,9 @@
 
 Some functions and tools gathered here to help the accounts management.
 
-_Note_: at the moment, we focus on the `users` collection as created by `accounts-passwd` package.
+_Note_: At the moment, we focus on the `Meteor.users` collection as created by `accounts-passwd` package.
+
+_Note_: According to [Accounts API](https://docs.meteor.com/api/accounts), "[...] an email address may belong to at most one user". According to [Passwords API](https://docs.meteor.com/api/passwords), "[...] if there are existing users with a username or email only differing in case, createUser will fail". We so consider in this package first, and more globally in our applications, that both the email address and the username can be used as a user account identifier.
 
 ## Usage
 
@@ -75,27 +77,23 @@ See [Configuring](#configuring).
 
 As its name says.
 
-If the user document is provided, then returns a `Boolean` `true`|`false`.
+The function returns a Promise which will eventually resolve to a `true`|`false` boolean value.
 
-Else, retuns a Promise which will resolve to this same `Boolean` `true`|`false`.
-
-Please note that we do not search the `users` collection if a user document is provided. In this case, the result will be `false` if the user document is not the right one for this email address.
+If a user document is provided, then we search for the email address verification flag in this document. Else we search for the email address in the `Meteor.users` collection.
 
 #### `AccountsTools.opts()`
 
-A getter which returns the current options.
+A getter which returns the current configuration options as an `Options.Base` object.
+
+See `pwix:options` package for a full description of the `Options.Base` class.
 
 #### `AccountsTools.preferredLabel( id|user [, preferred] )`
 
-The function returns:
-- either a `Promise` which eventually will resolve to the result object, if the method is called with a user identifier `id` (which must be the Mongo `user._id`),
-- or the result `Object` itself, if the method is called with a user document `user`.
+The function returns a Promise which will eventually resolve to the result object.
 
 The result object has following keys:
 - `label`: the computed preferred label
 - `origin`: the origin, which may be `ID` if the account has not been found, or `AccountsTools.C.PreferredLabel.USERNAME` or `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`.
-
-On server side, the function returns an alrealdy resolved Promise (rationale: have a common prototype on client and server sides).
 
 The application may have ask for either a username or an email address, or both.
 When time comes to display an identification string to the user, we need to choose between the username and the email address (if both apply), depending of the preference of the caller.
@@ -109,7 +107,7 @@ Default is the configured value.
 
 #### `AccountsTools.preferredLabelRV( id|user [, preferred] )`
 
-The same method that above `AccountsTools.preferredLabel()`, but returns a `ReactiveVar` with the value of the result, or which will be set to the value of the result when the Promise will be resolved.
+The same method that above `AccountsTools.preferredLabel()`, but returns a `ReactiveVar` which handles the Promise.
 
 #### `AccountsTools.writeData( id|user, set )`
 

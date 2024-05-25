@@ -11,7 +11,8 @@
 |   Id | Date       | Description and comment(s) |
 | ---: | :---       | :---                       |
 |    2 | 2023- 9-19 | make sure writeData() is relevant in current state (not sure at all) |
-|    3 |  |  |
+|    3 | 2024- 6-24 | review server code to replace all sync calls with async/await |
+|    4 |  |  |
 
 ---
 ## Done

@@ -5,8 +5,9 @@
 import _ from 'lodash';
 
 /*
- * @summary returns true|false if the email address is said verified in this user document
+ * @summary test if the email address is said verified in this user document
  * @locus Anywhere
+ * @returns: true|false
  */
 AccountsTools._isEmailVerified = function( email, user ){
     let verified = false;
