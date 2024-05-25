@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 2.0.0-rc
+### 2.0.0
 
-    Release date: 
+    Release date: 2024- 5-25
 
     - Get rid of 'deanius:promise' dependency
     - Change APIs to always return a Promise (todo #3) thus bumping the major version number
@@ -18,4 +18,4 @@
 
 ---
 P. Wieser
-- Last updated on 2023, Oct. 11th
+- Last updated on 2024, May. 25th
