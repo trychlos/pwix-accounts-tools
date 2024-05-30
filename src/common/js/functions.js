@@ -25,7 +25,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
  *     updatedBy: 'EqvmJAhNAZTBAECya'
  * }
  */
-AccountsTools.cleanupUserDocument = function( docuuserment ){
+AccountsTools.cleanupUserDocument = function( user ){
     if( user ){
         if( user.services ){
             delete user.services.resume;
@@ -41,13 +41,12 @@ AccountsTools.cleanupUserDocument = function( docuuserment ){
 /**
  * @locus Anywhere
  * @param {String} email the email address to be examined
- * @param {Object} user the user document
- * @returns {Promise} a Promise which eventually will resolve to a Boolean true|false value if no user document is provided
- *  or a Boolean true|false if a user document is provided
+ * @param {Object} user the (optional) user document
+ * @returns {Promise} which eventually will resolve to a true|false Boolean
  * Please note that we do not search in `users` collection if a user document is provided.
- * So in this later case, the result will be false if the user document is not the right one for this email address.
+ * So the result will be false if the provided user document is not the right one for this email address.
  */
-AccountsTools.isEmailVerified = async function( email, user ){
+AccountsTools.isEmailVerified = async function( email, user=null ){
     if( user ){
         return Promise.resolve( AccountsTools._isEmailVerified( email, user ));
     }

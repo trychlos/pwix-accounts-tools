@@ -76,9 +76,9 @@ AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
  * @param {String} arg the user identifier
  * @param {String} preferred the optional caller preference, may be null
  * @param {Object} the result object
- * @returns {Promise}
+ * @returns {Promise} which eventually resolves to the result object
  */
-AccountsTools._preferredLabelById = function( id, preferred, result ){
+AccountsTools._preferredLabelById = async function( id, preferred, result ){
     check( id, String );
     check( result, Object );
     if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
@@ -117,7 +117,7 @@ AccountsTools._preferredLabelInitialResult = function( arg, preferred ){
  * @locus Anywhere
  * @returns {Promise} which resolves to the user document
  */
-AccountsTools._userDocByEmail = function( email ){
+AccountsTools._userDocByEmail = async function( email ){
     check( email, String );
     return Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byEmail', email ) : AccountsTools.server.byEmail( email );
 };
@@ -126,7 +126,7 @@ AccountsTools._userDocByEmail = function( email ){
  * @locus Anywhere
  * @returns {Promise} which resolves to the user document
  */
-AccountsTools._userDocById = function( id ){
+AccountsTools._userDocById = async function( id ){
     check( id, String );
     return Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byId', id ) : AccountsTools.server.byId( id );
 };

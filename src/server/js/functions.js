@@ -16,7 +16,6 @@ AccountsTools.server = {
      */
     async byEmail( email ){
         check( email, String );
-        let res = Promise.resolve( null );
         if( email && _.isString( email )){
             return Meteor.users.findOneAsync({ 'emails.address': email })
                 .then(( doc ) => {
@@ -38,7 +37,6 @@ AccountsTools.server = {
      */
     async byId( id ){
         check( id, String );
-        let res = Promise.resolve( null );
         if( id && _.isString( id )){
             return Meteor.users.findOneAsync({ _id: id })
                 .then(( doc ) => {
@@ -59,17 +57,20 @@ AccountsTools.server = {
      *  do not update updatedAt/updatedBy values as this is considered as pure user settings
      * @throws {Error} when user not found
      */
-    writeData( id, set ){
-        let res = null;
+    async writeData( id, set ){
+        check( id, String );
+        check( set, Object );
         if( id && _.isString( id )){
-            res = Meteor.users.update({ _id: id }, { $set: set });
-            if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
-                console.log( 'pwix:accounts-tools writeData('+id+')', res );
-            }
+            return Meteor.users.updateAsync({ _id: id }, { $set: set })
+                .then(( res ) => {
+                    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
+                        console.log( 'pwix:accounts-tools writeData('+id+')', res );
+                    }
+                    return res;
+                });
         } else {
             // either a code error or a user try to bypass our checks
             throw new Meteor.Error( 'arg', 'incorrect argument' );
         }
-        return res;
     }
 };

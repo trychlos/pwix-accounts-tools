@@ -8,6 +8,7 @@
 
     - Add a dependency on Meteor check and check all private functions arguments
     - Define new AccountsTools.cleanupUserDocument() function, bumping candidate release number
+    - Reviewed all functions to use async versions and return Promises (todo #3)
 
 ### 2.0.0
 
