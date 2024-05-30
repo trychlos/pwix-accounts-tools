@@ -4,6 +4,8 @@
 
 import _ from 'lodash';
 
+import { Accounts } from 'meteor/accounts-base';
+
 AccountsTools.server = {
     /*
      * @param {String} the searched email address
