@@ -8,6 +8,18 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 /**
  * @locus Anywhere
+ * @param {String} email
+ * @param {Object} options an optional dictionary of fields to return or exclude
+ * @returns {Promise} which will eventually resolve to the cleanup user document, or null
+ */
+AccountsTools.byEmail = async function( email, options={} ){
+    check( email, String );
+    check( options, Object );
+    return Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byEmail', email, options ) : AccountsTools.server.byEmail( email, options );
+}
+
+/**
+ * @locus Anywhere
  * @param {Object} document
  * @returns {Object} the cleaned-up user document
  * 
@@ -50,7 +62,7 @@ AccountsTools.isEmailVerified = async function( email, user=null ){
     if( user ){
         return Promise.resolve( AccountsTools._isEmailVerified( email, user ));
     }
-    return AccountsTools._userDocByEmail( email )
+    return AccountsTools.byEmail( email )
         .then(( user ) => { return AccountsTools._isEmailVerified( email, user ); });
 }
 

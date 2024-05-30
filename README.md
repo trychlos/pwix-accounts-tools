@@ -67,6 +67,14 @@ The globally exported object.
 
 ### Methods
 
+#### `AccountsTools.byEmail( email [, options] )`
+
+Returns a Promise which will resolve to the cleaned up document of the unique user which holds the provided email address, or null if none of several (which would be a bug anyway).
+
+`options` is an optional dictionary of fields to return or exclude.
+
+See also [findUserByEmail()](https://v3-docs.meteor.com/api/accounts.html#Accounts-findUserByEmail) Meteor function.
+
 #### `AccountsTools.cleanupUserDocument( document )`
 
 Cleanup a user document before returning it to the client.
