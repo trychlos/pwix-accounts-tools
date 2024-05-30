@@ -3,13 +3,18 @@
  */
 
 Meteor.methods({
+    // find a user by one of his/her email addresses
+    async 'AccountsTools.byEmail'( email ){
+        return AccountsTools.server.byEmail( email );
+    },
+
     // find a user by his internal (mongo) identifier
-    'AccountsTools.byId'( id ){
+    async 'AccountsTools.byId'( id ){
         return AccountsTools.server.byId( id );
     },
 
     // update the named field of the user data
-    'AccountsTools.writeData'( id, set ){
+    async 'AccountsTools.writeData'( id, set ){
         return AccountsTools.server.writeData( id, set );
     }
 });

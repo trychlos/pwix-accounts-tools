@@ -119,7 +119,7 @@ AccountsTools._preferredLabelInitialResult = function( arg, preferred ){
  */
 AccountsTools._userDocByEmail = function( email ){
     check( email, String );
-    return Meteor.isClient ? Meteor.callPromise( 'AccountsTools.byEmail', email ) : Promise.resolve( AccountsTools.server.byEmail( email ));
+    return Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byEmail', email ) : AccountsTools.server.byEmail( email );
 };
 
 /*
@@ -128,5 +128,5 @@ AccountsTools._userDocByEmail = function( email ){
  */
 AccountsTools._userDocById = function( id ){
     check( id, String );
-    return Meteor.isClient ? Meteor.callPromise( 'AccountsTools.byId', id ) : Promise.resolve( AccountsTools.server.byId( id ));
+    return Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byId', id ) : AccountsTools.server.byId( id );
 };

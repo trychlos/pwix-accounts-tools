@@ -6,67 +6,52 @@ import _ from 'lodash';
 
 AccountsTools.server = {
     /*
-     * Returns the user document
+     * @param {String} the searched email address
+     * @returns {Promise} which eventually resolves to the user document, or null
+     * 
+     *  As a reminder, see https://v3-docs.meteor.com/api/accounts.html#Meteor-users
+     *                 and https://v3-docs.meteor.com/api/accounts.html#passwords
+     *  Each email address can only belong to one user
+     *  In other words, an email address can be considered as a user identiier in Meteor ecosystems
      */
-    byEmail( email ){
-        let res = null;
+    async byEmail( email ){
+        check( email, String );
+        let res = Promise.resolve( null );
         if( email && _.isString( email )){
-            res = AccountsTools.server.cleanUser( Meteor.users.findOne({ 'emails.address': email }));
-            if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
-                console.log( 'pwix:accounts-tools byEmail('+email+')', res );
-            }
+            return Meteor.users.findOneAsync({ 'emails.address': email })
+                .then(( doc ) => {
+                    doc = AccountsTools.cleanupUserDocument( doc );
+                    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
+                        console.log( 'pwix:accounts-tools byEmail('+email+')', doc );
+                    }
+                    return doc;
+                });
         } else {
             // either a code error or a user try to bypass our checks
             throw new Meteor.Error( 'arg', 'incorrect argument' );
         }
-        //console.debug( 'AccountsTools.server.byId', res );
-        return res;
     },
 
     /*
-     * Returns the user document
+     * @param {String} the user identifier
+     * @returns {Promise} which eventually resolves to the user document
      */
-    byId( id ){
-        let res = null;
+    async byId( id ){
+        check( id, String );
+        let res = Promise.resolve( null );
         if( id && _.isString( id )){
-            res = AccountsTools.server.cleanUser( Meteor.users.findOne({ _id: id }));
-            if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
-                console.log( 'pwix:accounts-tools byId('+id+')', res );
-            }
+            return Meteor.users.findOneAsync({ _id: id })
+                .then(( doc ) => {
+                    doc = AccountsTools.cleanupUserDocument( doc );
+                    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
+                        console.log( 'pwix:accounts-tools byId('+id+')', doc );
+                    }
+                    return doc;
+                });
         } else {
             // either a code error or a user try to bypass our checks
             throw new Meteor.Error( 'arg', 'incorrect argument' );
         }
-        //console.debug( 'AccountsTools.server.byId', res );
-        return res;
-    },
-
-    // make sure the password, even crypted, is not returned:
-    // {
-    //     _id: '55QDvyxocA8XBnyTy',
-    //     createdAt: 2023-02-08T21:16:56.851Z,
-    //     services: { password: {}, email: { verificationTokens: [Array] } },
-    //     username: 'cccc',
-    //     emails: [ { address: 'cccc@ccc.cc', verified: true } ],
-    //     isAllowed: true,
-    //     createdBy: 'EqvmJAhNAZTBAECya',
-    //     lastConnection: 2023-02-09T13:22:14.057Z,
-    //     updatedAt: 2023-02-09T13:25:16.114Z,
-    //     updatedBy: 'EqvmJAhNAZTBAECya'
-    // }
-    //
-    cleanUser( user ){
-        if( user ){
-            if( user.services ){
-                delete user.services.resume;
-                if( user.services.password ){
-                    delete user.services.password.bcrypt;
-                }
-            }
-            delete user.profile;
-        }
-        //console.log( user );
-        return user;
     },
 
     /**

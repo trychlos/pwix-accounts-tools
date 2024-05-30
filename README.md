@@ -67,6 +67,12 @@ The globally exported object.
 
 ### Methods
 
+#### `AccountsTools.cleanupUserDocument( document )`
+
+Cleanup a user document before returning it to the client.
+
+Note that, even if this method is published and available both on client and server sides, it should be considered as a MUST-BE-CALLED on server side before returning any user document to the client.
+
 #### `AccountsTools.configure( o )`
 
 The configuration of the package.

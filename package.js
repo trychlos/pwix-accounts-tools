@@ -1,6 +1,6 @@
 Package.describe({
     name: 'pwix:accounts-tools',
-    version: '2.0.1-rc',
+    version: '2.1.0-rc',
     summary: 'Accounts management tools',
     git: 'https://github.com/trychlos/pwix-accounts-tools',
     documentation: 'README.md'

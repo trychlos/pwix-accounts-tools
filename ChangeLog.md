@@ -2,11 +2,12 @@
 
 ## ChangeLog
 
-### 2.0.1-rc
+### 2.1.0-rc
 
     Release date: 
 
     - Add a dependency on Meteor check and check all private functions arguments
+    - Define new AccountsTools.cleanupUserDocument() function, bumping candidate release number
 
 ### 2.0.0
 
