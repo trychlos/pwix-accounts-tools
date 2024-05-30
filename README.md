@@ -133,7 +133,25 @@ The function returns:
 
 - on the server, the result Metoer.update() method.
 
+### Publications
+
+#### `AccountsTools.emails( [ mode [, options]] )`
+
+Publish the list of available emails addresses or of available distinct users as `{ _id, email, verified }` objects.
+
+- `mode` is the optional level of the publication, and may be:
+
+    - `AccountsTools.C.EmailsPublication.PER_EMAIL`: have a single row per email address, which is the default
+    - `AccountsTools.C.EmailsPublication.PER_USER`: have a single row per user.
+
+- `options` is an optional dictionary of fields to return or exclude.
+
 ### Constants
+
+#### When choosing the emails publication mode
+
+- `AccountsTools.C.EmailsPublication.PER_EMAIL`
+- `AccountsTools.C.EmailsPublication.PER_USER`
 
 #### When choosing the preferred label
 

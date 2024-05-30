@@ -4,6 +4,13 @@
 
 AccountsTools.C = {
 
+    // when subscribing to 'emails' publication, whether to have a single row per email address
+    //  or a single row per user
+    EmailsPublication: {
+        PER_EMAIL:  'EMAIL',
+        PER_USER:   'USER'
+    },
+
     // when choosing a preferred label
     PreferredLabel: {
         USERNAME:      'USERNAME',

@@ -39,7 +39,7 @@ Template.acSelect.onCreated( function(){
         users: {},
 
         // subscribe to our publication
-        handle: self.subscribe( 'pwiAccounts.byEmail' ),
+        handle: self.subscribe( 'AccountsTools.emails' ),
 
         // get a translated label
         i18n( label ){
