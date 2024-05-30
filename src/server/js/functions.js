@@ -13,13 +13,15 @@ AccountsTools.server = {
      * 
      *  As a reminder, see https://v3-docs.meteor.com/api/accounts.html#Meteor-users
      *                 and https://v3-docs.meteor.com/api/accounts.html#passwords
+     *                 and https://v3-docs.meteor.com/api/accounts.html#Accounts-findUserByEmail
      *  Each email address can only belong to one user
      *  In other words, an email address can be considered as a user identiier in Meteor ecosystems
      */
-    async byEmail( email ){
+    async byEmail( email, options={} ){
         check( email, String );
+        check( options, Object );
         if( email && _.isString( email )){
-            return Meteor.users.findOneAsync({ 'emails.address': email })
+            return Accounts.findUserByEmail( email, options )
                 .then(( doc ) => {
                     doc = AccountsTools.cleanupUserDocument( doc );
                     if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){

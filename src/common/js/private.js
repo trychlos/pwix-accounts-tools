@@ -117,9 +117,10 @@ AccountsTools._preferredLabelInitialResult = function( arg, preferred ){
  * @locus Anywhere
  * @returns {Promise} which resolves to the user document
  */
-AccountsTools._userDocByEmail = async function( email ){
+AccountsTools._userDocByEmail = async function( email, options={} ){
     check( email, String );
-    return Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byEmail', email ) : AccountsTools.server.byEmail( email );
+    check( options, Object );
+    return Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byEmail', email, options ) : AccountsTools.server.byEmail( email, options );
 };
 
 /*

@@ -85,7 +85,7 @@ As its name says.
 
 The function returns a Promise which will eventually resolve to a `true`|`false` boolean value.
 
-If a user document is provided, then we search for the email address verification flag in this document. Else we search for the email address in the `Meteor.users` collection.
+If a user document is provided, then we search for the email address and its verification flag in this document. Else we search for the email address in the `Meteor.users` collection.
 
 #### `AccountsTools.opts()`
 
