@@ -11,6 +11,7 @@
 |   Id | Date       | Description and comment(s) |
 | ---: | :---       | :---                       |
 |    2 | 2023- 9-19 | make sure writeData() is relevant in current state (not sure at all) |
+|      | 2024- 5-30 | could be for example a 'set' function, with Mongo query argument |
 |    4 |  |  |
 
 ---
