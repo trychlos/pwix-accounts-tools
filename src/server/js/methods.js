@@ -13,6 +13,11 @@ Meteor.methods({
         return AccountsTools.server.byId( id );
     },
 
+    // find a user by his/her username
+    async 'AccountsTools.byUsername'( username, options={} ){
+        return AccountsTools.server.byUsername( username, options );
+    },
+
     // update the named field of the user data
     async 'AccountsTools.writeData'( id, set ){
         return AccountsTools.server.writeData( id, set );

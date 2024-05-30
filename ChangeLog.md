@@ -11,6 +11,7 @@
     - Define new AccountsTools.cleanupUserDocument() function, bumping candidate release number
     - Reviewed all functions to use async versions and return Promises (todo #3)
     - New AccountsTools.byEmail() function
+    - New AccountsTools.byUsername() function
 
 ### 2.0.0
 
