@@ -6,7 +6,7 @@
 
     Release date: 
 
-    - 
+    - Add a dependency on Meteor check and check all private functions arguments
 
 ### 2.0.0
 

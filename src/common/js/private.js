@@ -7,9 +7,13 @@ import _ from 'lodash';
 /*
  * @summary test if the email address is said verified in this user document
  * @locus Anywhere
+ * @param {String} email
+ * @param {Object} user
  * @returns: true|false
  */
 AccountsTools._isEmailVerified = function( email, user ){
+    check( email, String );
+    check( user, Object );
     let verified = false;
     let found = false;
     user.emails.every(( o ) => {
@@ -28,9 +32,12 @@ AccountsTools._isEmailVerified = function( email, user ){
  * @param {Object} user the user document got from the database
  * @param {String} preferred an optional preference, either AccountsTools.C.PreferredLabel.USERNAME or AccountsTools.C.PreferredLabel.EMAIL_ADDRESS,
  *  defaulting to the configured value.
+ * @param {Object} the result object to be updated
  * @returns: {Object}
  */
 AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
+    check( user, Object );
+    check( result, Object );
     if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
         console.log( 'pwix:accounts-tools preferredLabelByDoc() user=', user, 'preferred='+preferred, 'result=', result );
     }
@@ -67,11 +74,13 @@ AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
  * @summary Returns the preferred label for the user
  * @locus Anywhere
  * @param {String} arg the user identifier
- * @param {String} preferred the optional caller preference
+ * @param {String} preferred the optional caller preference, may be null
  * @param {Object} the result object
  * @returns {Promise}
  */
 AccountsTools._preferredLabelById = function( id, preferred, result ){
+    check( id, String );
+    check( result, Object );
     if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
         console.log( 'pwix:accounts-tools preferredLabelById() id='+id, 'preferred='+preferred, 'result=', result );
     }
@@ -83,6 +92,7 @@ AccountsTools._preferredLabelById = function( id, preferred, result ){
 /*
  * @summary Returns the preferredLabel initial result, or null
  * @locus Anywhere
+ * @returns {Object} the initial result
  */
 AccountsTools._preferredLabelInitialResult = function( arg, preferred ){
     if( arg ){
@@ -108,6 +118,7 @@ AccountsTools._preferredLabelInitialResult = function( arg, preferred ){
  * @returns {Promise} which resolves to the user document
  */
 AccountsTools._userDocByEmail = function( email ){
+    check( email, String );
     return Meteor.isClient ? Meteor.callPromise( 'AccountsTools.byEmail', email ) : Promise.resolve( AccountsTools.server.byEmail( email ));
 };
 
@@ -116,5 +127,6 @@ AccountsTools._userDocByEmail = function( email ){
  * @returns {Promise} which resolves to the user document
  */
 AccountsTools._userDocById = function( id ){
+    check( id, String );
     return Meteor.isClient ? Meteor.callPromise( 'AccountsTools.byId', id ) : Promise.resolve( AccountsTools.server.byId( id ));
 };
