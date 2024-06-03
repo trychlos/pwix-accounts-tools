@@ -19,7 +19,7 @@ Meteor.methods({
     },
 
     // update the named field of the user data
-    async 'AccountsTools.writeData'( id, set ){
-        return AccountsTools.server.writeData( id, set );
+    async 'AccountsTools.update'( id, modifier, options ){
+        return AccountsTools.server.update( id, modifier, options );
     }
 });

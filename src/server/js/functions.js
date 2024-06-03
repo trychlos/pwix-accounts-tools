@@ -89,11 +89,11 @@ AccountsTools.server = {
      *  do not update updatedAt/updatedBy values as this is considered as pure user settings
      * @throws {Error} when user not found
      */
-    async writeData( id, set ){
+    async update( id, modifier, options ){
         check( id, String );
-        check( set, Object );
+        check( modifier, Object );
         if( id && _.isString( id )){
-            return Meteor.users.updateAsync({ _id: id }, { $set: set })
+            return Meteor.users.updateAsync({ _id: id }, modifier, options )
                 .then(( res ) => {
                     if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
                         console.log( 'pwix:accounts-tools writeData('+id+')', res );

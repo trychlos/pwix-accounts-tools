@@ -13,6 +13,7 @@
     - New AccountsTools.byEmail() function
     - New AccountsTools.byUsername() function
     - New AccountsTools.emails publication
+    - Replace writedata() function with update( selector, modifier, options ) (todo #2)
 
 ### 2.0.0
 

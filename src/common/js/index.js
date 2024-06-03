@@ -9,4 +9,4 @@ import './defaults.js';
 import './configure.js';
 import './functions.js';
 import './private.js';
-import './writedata.js';
+import './update.js';
