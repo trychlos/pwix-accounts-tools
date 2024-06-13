@@ -4,7 +4,7 @@
 
 ### 2.1.0-rc
 
-    Release date: 
+    Release date:
 
     - Add a dependency on Meteor check and check all private functions arguments
     - Add a dependency on Meteor accounts-base
@@ -14,6 +14,7 @@
     - New AccountsTools.byUsername() function
     - New AccountsTools.emails publication
     - Replace writedata() function with update( selector, modifier, options ) (todo #2)
+    - Update README
 
 ### 2.0.0
 
