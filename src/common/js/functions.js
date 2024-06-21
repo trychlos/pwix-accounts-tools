@@ -15,7 +15,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 AccountsTools.byEmail = async function( email, options={} ){
     check( email, String );
     check( options, Object );
-    return Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byEmail', email, options ) : AccountsTools.server.byEmail( email, options );
+    return await ( Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byEmail', email, options ) : AccountsTools.server.byEmail( email, options ));
 }
 
 /**
@@ -27,14 +27,14 @@ AccountsTools.byEmail = async function( email, options={} ){
 AccountsTools.byUsername = async function( username, options={} ){
     check( username, String );
     check( options, Object );
-    return Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byUsername', username, options ) : AccountsTools.server.byUsername( username, options );
+    return await( Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byUsername', username, options ) : AccountsTools.server.byUsername( username, options ));
 }
 
 /**
  * @locus Anywhere
  * @param {Object} document
  * @returns {Object} the cleaned-up user document
- * 
+ *
  * make sure the password, even crypted, is not returned:
  * {
  *     _id: '55QDvyxocA8XBnyTy',
@@ -72,7 +72,7 @@ AccountsTools.cleanupUserDocument = function( user ){
  */
 AccountsTools.isEmailVerified = async function( email, user=null ){
     if( user ){
-        return Promise.resolve( AccountsTools._isEmailVerified( email, user ));
+        return AccountsTools._isEmailVerified( email, user );
     }
     return AccountsTools.byEmail( email )
         .then(( user ) => { return AccountsTools._isEmailVerified( email, user ); });
