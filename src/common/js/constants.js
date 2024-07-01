@@ -23,5 +23,6 @@ AccountsTools.C = {
         CONFIGURE:      0x01 << 0,
         SERVERDB:       0x01 << 1,
         PREFERREDLABEL: 0x01 << 2,
+        FUNCTIONS:      0x01 << 3
     }
 };

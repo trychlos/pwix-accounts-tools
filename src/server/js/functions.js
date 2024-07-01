@@ -11,7 +11,7 @@ AccountsTools.server = {
      * @param {String} the searched email address
      * @param {Object} options an optional dictionary of fields to return or exclude
      * @returns {Promise} which eventually resolves to the user document, or null
-     * 
+     *
      *  As a reminder, see https://v3-docs.meteor.com/api/accounts.html#Meteor-users
      *                 and https://v3-docs.meteor.com/api/accounts.html#passwords
      *                 and https://v3-docs.meteor.com/api/accounts.html#Accounts-findUserByEmail
@@ -25,9 +25,7 @@ AccountsTools.server = {
             return Accounts.findUserByEmail( email, options )
                 .then(( doc ) => {
                     doc = AccountsTools.cleanupUserDocument( doc );
-                    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
-                        console.log( 'pwix:accounts-tools byEmail('+email+')', doc );
-                    }
+                    _verbose( AccountsTools.C.Verbose.SERVERDB, 'pwix:accounts-tools byEmail('+email+')', doc );
                     return doc;
                 });
         } else {
@@ -46,9 +44,7 @@ AccountsTools.server = {
             return Meteor.users.findOneAsync({ _id: id })
                 .then(( doc ) => {
                     doc = AccountsTools.cleanupUserDocument( doc );
-                    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
-                        console.log( 'pwix:accounts-tools byId('+id+')', doc );
-                    }
+                    _verbose( AccountsTools.C.Verbose.SERVERDB, 'pwix:accounts-tools byId('+id+')', doc );
                     return doc;
                 });
         } else {
@@ -61,7 +57,7 @@ AccountsTools.server = {
      * @param {String} the searched username
      * @param {Object} options an optional dictionary of fields to return or exclude
      * @returns {Promise} which eventually resolves to the user document, or null
-     * 
+     *
      *  As a reminder, see https://v3-docs.meteor.com/api/accounts.html#Accounts-findUserByUsername
      *  Each username can only belong to one user
      *  In other words, a username can be considered as a user identiier in Meteor ecosystems
@@ -73,9 +69,7 @@ AccountsTools.server = {
             return Accounts.findUserByUsername( username, options )
                 .then(( doc ) => {
                     doc = AccountsTools.cleanupUserDocument( doc );
-                    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
-                        console.log( 'pwix:accounts-tools byUsername('+username+')', doc );
-                    }
+                    _verbose( AccountsTools.C.Verbose.SERVERDB, 'pwix:accounts-tools byUsername('+username+')', doc );
                     return doc;
                 });
         } else {
@@ -95,9 +89,7 @@ AccountsTools.server = {
         if( id && _.isString( id )){
             return Meteor.users.updateAsync({ _id: id }, modifier, options )
                 .then(( res ) => {
-                    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.SERVERDB ){
-                        console.log( 'pwix:accounts-tools writeData('+id+')', res );
-                    }
+                    _verbose( AccountsTools.C.Verbose.SERVERDB, 'pwix:accounts-tools writeData('+id+')', res );
                     return res;
                 });
         } else {

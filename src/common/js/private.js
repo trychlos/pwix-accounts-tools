@@ -38,9 +38,7 @@ AccountsTools._isEmailVerified = function( email, user ){
 AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
     check( user, Object );
     check( result, Object );
-    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
-        console.log( 'pwix:accounts-tools preferredLabelByDoc() user=', user, 'preferred='+preferred, 'result=', result );
-    }
+    _verbose( AccountsTools.C.Verbose.PREFERREDLABEL, 'pwix:accounts-tools preferredLabelByDoc() user=', user, 'preferred='+preferred, 'result=', result );
     // make reasonably sure we have a user document
     if( user && _.isObject( user ) && user._id && _.isString( user._id )){
         let mypref = preferred;
@@ -54,15 +52,11 @@ AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
             result = { label: user.emails[0].address, origin: AccountsTools.C.PreferredLabel.EMAIL_ADDRESS };
 
         } else if( user.username ){
-            if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
-                console.log( 'pwix:accounts-tools fallback to username while preferred is', mypref );
-            }
+            _verbose( AccountsTools.C.Verbose.PREFERREDLABEL, 'pwix:accounts-tools fallback to username while preferred is', mypref );
             result = { label: user.username, origin: AccountsTools.C.PreferredLabel.USERNAME };
 
         } else if( user.emails[0].address ){
-            if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
-                console.log( 'pwix:accounts-tools fallback to email address name while preferred is', mypref );
-            }
+            _verbose( AccountsTools.C.Verbose.PREFERREDLABEL, 'pwix:accounts-tools fallback to email address name while preferred is', mypref );
             const words = user.emails[0].address.split( '@' );
             result = { label: words[0], origin: AccountsTools.C.PreferredLabel.EMAIL_ADDRESS };
         }
@@ -81,9 +75,7 @@ AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
 AccountsTools._preferredLabelById = async function( id, preferred, result ){
     check( id, String );
     check( result, Object );
-    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
-        console.log( 'pwix:accounts-tools preferredLabelById() id='+id, 'preferred='+preferred, 'result=', result );
-    }
+    _verbose( AccountsTools.C.Verbose.PREFERREDLABEL, 'pwix:accounts-tools preferredLabelById() id='+id, 'preferred='+preferred, 'result=', result );
     //console.debug( id );
     return AccountsTools._userDocById( id )
         .then(( user ) => { return Promise.resolve( AccountsTools._preferredLabelByDoc( user, preferred, result )); });

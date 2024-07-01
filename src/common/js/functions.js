@@ -89,9 +89,7 @@ AccountsTools.isEmailVerified = async function( email, user=null ){
  *  - origin: the origin, which may be 'ID' or AccountsTools.C.PreferredLabel.USERNAME or AccountsTools.C.PreferredLabel.EMAIL_ADDRESS
  */
 AccountsTools.preferredLabel = async function( arg, preferred=null ){
-    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
-        console.log( 'pwix:accounts-tools preferredLabel() arg='+arg, 'preferred='+preferred );
-    }
+    _verbose( AccountsTools.C.Verbose.PREFERREDLABEL, 'pwix:accounts-tools preferredLabel() arg='+arg, 'preferred='+preferred );
     let result = AccountsTools._preferredLabelInitialResult( arg, preferred );
     if( result ){
         // if a user identifier is provided, returns a Promise which resolves to the updated result object
@@ -123,9 +121,7 @@ AccountsTools.preferredLabel = async function( arg, preferred=null ){
  *  - origin: the origin, which may be 'ID' or AccountsTools.C.PreferredLabel.USERNAME or AccountsTools.C.PreferredLabel.EMAIL_ADDRESS
  */
 AccountsTools.preferredLabelRV = function( arg, preferred=null ){
-    if( AccountsTools.opts().verbosity() & AccountsTools.C.Verbose.PREFERREDLABEL ){
-        console.log( 'pwix:accounts-tools preferredLabelRV() arg='+arg, 'preferred='+preferred );
-    }
+    _verbose( AccountsTools.C.Verbose.PREFERREDLABEL, 'pwix:accounts-tools preferredLabelRV() arg='+arg, 'preferred='+preferred );
     const ret = AccountsTools.preferredLabel( arg, preferred );
     if( ret ){
         const rv = new ReactiveVar( AccountsTools._preferredLabelInitialResult( arg, preferred ));

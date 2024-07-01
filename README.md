@@ -163,7 +163,7 @@ Known configuration options are:
 
     Trace results from server accesses to the database.
 
-    Defaults to `AccountsTools.C.Verbose.NONE`.
+    Defaults to `AccountsTools.C.Verbose.CONFIGURE`.
 
 Please note that `AccountsTools.configure()` method should be called in the same terms both in client and server sides.
 

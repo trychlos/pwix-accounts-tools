@@ -5,6 +5,6 @@
 AccountsTools._defaults = {
     conf: {
         preferredLabel: AccountsTools.C.PreferredLabel.EMAIL_ADDRESS,
-        verbosity: AccountsTools.C.Verbose.NONE
+        verbosity: AccountsTools.C.Verbose.CONFIGURE
     }
 };
