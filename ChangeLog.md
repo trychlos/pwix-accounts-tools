@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 2.1.0-rc
+### 2.1.0
 
-    Release date:
+    Release date: 2024- 7- 1
 
     - Add a dependency on Meteor check and check all private functions arguments
     - Add a dependency on Meteor accounts-base
@@ -33,4 +33,4 @@
 
 ---
 P. Wieser
-- Last updated on 2024, May. 25th
+- Last updated on 2024, Jul. 1st
