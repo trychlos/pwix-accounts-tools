@@ -101,7 +101,11 @@ AccountsTools.preferredLabel = async function( arg, preferred=null ){
         }
         if( _.isString( arg._id )){
             return Promise.resolve( result )
-                .then(() => { return AccountsTools._preferredLabelByDoc( arg, preferred || AccountsTools.opts().preferredLabel(), result ); });
+                .then(() => { return AccountsTools._preferredLabelByDoc( arg, preferred || AccountsTools.opts().preferredLabel(), result ); })
+                .then(( res ) => {
+                    //console.debug( res );
+                    return res;
+                });
         }
     }
     console.error( 'AccountsTools.preferredLabel() expects at least one argument, none found' );
