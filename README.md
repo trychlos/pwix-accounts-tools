@@ -82,17 +82,15 @@ Default is the configured value.
 
 ##### `AccountsTools.preferredLabelRV( id|user [, preferred] )`
 
-The same method that above `AccountsTools.preferredLabel()`, but returns a `ReactiveVar` which handles the Promise.
+The same method that above `AccountsTools.preferredLabel()`, but returns a `ReactiveVar` which handles the result object.
 
-##### `AccountsTools.writeData( id|user, set )`
+The caller doesn't see here any Promise. It receives an already initialized ReactiveVar. This ReactiveVar will be asynchrousloy updated with the final result object.
 
-Update (do not create) a user document with the provided set.
+##### `AccountsTools.update( id|user, modifier [, options] )`
 
-The function returns:
+Update (do not create) a user document with the provided modifier.
 
-- on the client, a Promise which eventually resolves to the result
-
-- on the server, the result Metoer.update() method.
+The function returns a Promise which eventually resolves to the result.
 
 #### Constants
 

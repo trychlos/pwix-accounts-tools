@@ -116,17 +116,42 @@ AccountsTools.preferredLabel = async function( arg, preferred=null ){
  * @param {String|Object} arg the user identifier or the user document
  * @param {String} preferred the optional caller preference, either AccountsTools.C.PreferredLabel.USERNAME or AccountsTools.C.PreferredLabel.EMAIL_ADDRESS,
  *  defaulting to the configured value
- * @returns {ReactiveVar} a ReactiveVar which handles a Promise which eventually will resolve to an object with following keys:
+ * @returns {ReactiveVar} a ReactiveVar initialized with the default result object.
+ *  This ReactiveVar will later (and aynchronously) be updated with the actual values.
+ *  This is an object with following keys:
  *  - label: the computed preferred label
  *  - origin: the origin, which may be 'ID' or AccountsTools.C.PreferredLabel.USERNAME or AccountsTools.C.PreferredLabel.EMAIL_ADDRESS
  */
 AccountsTools.preferredLabelRV = function( arg, preferred=null ){
     _verbose( AccountsTools.C.Verbose.PREFERREDLABEL, 'pwix:accounts-tools preferredLabelRV() arg='+arg, 'preferred='+preferred );
-    const ret = AccountsTools.preferredLabel( arg, preferred );
-    if( ret ){
-        const rv = new ReactiveVar( AccountsTools._preferredLabelInitialResult( arg, preferred ));
-        ret.then(( result ) => { rv.set( result ); });
-        return rv;
+    let rv = new ReactiveVar( AccountsTools._preferredLabelInitialResult( arg, preferred ));
+    AccountsTools.preferredLabel( arg, preferred ).then(( res ) => {
+        console.debug( 'setting rv' );
+        rv.set( res );
+    });
+    return rv;
+};
+
+/**
+ * @summary Update an existing user document
+ * @locus Anywhere
+ * @param {String|Object} user the user identifier or the user document
+ * @param {Object} modifier the values to be set as a Mongo modifier
+ * @param {Object} options an optional options
+ *  see https://v3-docs.meteor.com/api/collections.html#Mongo-Collection-updateAsync
+ * @returns {Promise} which eventually resolves to the result
+ */
+AccountsTools.update = async function( user, modifier, options ){
+    const id = _.isString( user ) ? user : user._id;
+    let res = null;
+    if( id && _.isString( id )){
+        if( Meteor.isClient ){
+            res = Meteor.callAsync( 'AccountsTools.update', id, modifier, options );
+        } else {
+            res = AccountsTools.server.update( id, modifier, options );
+        }
+    } else {
+        throw new Meteor.Error( 'arg', 'incorrect argument' );
     }
-    return null;
+    return res;
 };

@@ -10,4 +10,3 @@ import './trace.js';
 import './configure.js';
 import './functions.js';
 import './private.js';
-import './update.js';
