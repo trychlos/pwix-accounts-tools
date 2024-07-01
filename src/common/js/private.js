@@ -70,15 +70,16 @@ AccountsTools._preferredLabelByDoc = function( user, preferred, result ){
  * @param {String} arg the user identifier
  * @param {String} preferred the optional caller preference, may be null
  * @param {Object} the result object
- * @returns {Promise} which eventually resolves to the result object
+ * @returns {Promise} which eventually resolves to the result object, or null if user has not been found
  */
 AccountsTools._preferredLabelById = async function( id, preferred, result ){
     check( id, String );
     check( result, Object );
     _verbose( AccountsTools.C.Verbose.PREFERREDLABEL, 'pwix:accounts-tools preferredLabelById() id='+id, 'preferred='+preferred, 'result=', result );
-    //console.debug( id );
     return AccountsTools._userDocById( id )
-        .then(( user ) => { return Promise.resolve( AccountsTools._preferredLabelByDoc( user, preferred, result )); });
+        .then(( user ) => {
+            return user ? AccountsTools._preferredLabelByDoc( user, preferred, result ) : null;
+        });
 };
 
 /*

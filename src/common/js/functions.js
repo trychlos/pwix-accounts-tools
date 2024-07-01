@@ -95,7 +95,11 @@ AccountsTools.preferredLabel = async function( arg, preferred=null ){
         // if a user identifier is provided, returns a Promise which resolves to the updated result object
         if( _.isString( arg )){
             return Promise.resolve( result )
-                .then(() => { return AccountsTools._preferredLabelById( arg, preferred || AccountsTools.opts().preferredLabel(), result ); });
+                .then(() => { return AccountsTools._preferredLabelById( arg, preferred || AccountsTools.opts().preferredLabel(), result ); })
+                .then(( res ) => {
+                    //console.debug( 'res', res );
+                    return res ? res : result;
+                });
         }
         if( _.isString( arg._id )){
             return Promise.resolve( result )
@@ -126,7 +130,6 @@ AccountsTools.preferredLabelRV = function( arg, preferred=null ){
     _verbose( AccountsTools.C.Verbose.PREFERREDLABEL, 'pwix:accounts-tools preferredLabelRV() arg='+arg, 'preferred='+preferred );
     let rv = new ReactiveVar( AccountsTools._preferredLabelInitialResult( arg, preferred ));
     AccountsTools.preferredLabel( arg, preferred ).then(( res ) => {
-        console.debug( 'setting rv' );
         rv.set( res );
     });
     return rv;

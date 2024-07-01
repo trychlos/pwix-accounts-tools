@@ -15,6 +15,7 @@
     - New AccountsTools.emails publication
     - Replace writedata() function with update( selector, modifier, options ) (todo #2)
     - Update README
+    - Fix the behaviour when user is not found in the collection
 
 ### 2.0.0
 
