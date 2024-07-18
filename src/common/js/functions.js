@@ -8,6 +8,28 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 /**
  * @locus Anywhere
+ * @param {String|Object} userA
+ * @param {String|Object} userB
+ * @returns {Boolean} whether userA and userB are same
+ */
+AccountsTools.areSame = function( userA, userB ){
+    const idA = userA ? ( _.isObject( userA ) ? userA._id : ( _.isString( userA ) ? userA : null )) : null;
+    const idB = userB ? ( _.isObject( userB ) ? userB._id : ( _.isString( userB ) ? userB : null )) : null;
+    let res = true;
+    if( idA === null ){
+        console.warn( 'unable to get user identifier from', userA );
+    }
+    if( idB === null ){
+        console.warn( 'unable to get user identifier from', userB );
+    }
+    if( idA && idB ){
+        res = ( idA === idB );
+    }
+    return res;
+}
+
+/**
+ * @locus Anywhere
  * @param {String} email
  * @param {Object} options an optional dictionary of fields to return or exclude
  * @returns {Promise} which will eventually resolve to the cleanup user document, or null

@@ -1,6 +1,6 @@
 Package.describe({
     name: 'pwix:accounts-tools',
-    version: '2.1.1-rc',
+    version: '2.2.0-rc',
     summary: 'Accounts management tools',
     git: 'https://github.com/trychlos/pwix-accounts-tools',
     documentation: 'README.md'
@@ -28,7 +28,7 @@ function configure( api ){
     api.use( 'check' );
     api.use( 'ecmascript' );
     api.use( 'mongo' );
-    api.use( 'pwix:options@2.1.1' );
+    api.use( 'pwix:accounts-conf@1.0.0-rc' );
     api.use( 'reactive-var' );
     api.use( 'tmeasday:check-npm-versions@1.0.2 || 2.0.0-beta.0', 'server' );
 }
