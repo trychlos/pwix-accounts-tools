@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 2.2.0-rc
+### 2.2.0
 
-    Release date: 
+    Release date: 2024- 9-13
 
     - Replace the pwix:options dependency with a pwix:accounts-conf one
     - Define AccountsTools.areSame() new function, bumping minor candidate version number
@@ -40,4 +40,4 @@
 
 ---
 P. Wieser
-- Last updated on 2024, Jul. 1st
+- Last updated on 2024, Sep. 13th
