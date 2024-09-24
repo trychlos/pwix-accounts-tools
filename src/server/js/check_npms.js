@@ -8,7 +8,9 @@ if( false ){
 }
 
 checkNpmVersions({
-    'lodash': '^4.17.0'
+    'email-validator': '^2.0.4',
+    'lodash': '^4.17.0',
+    'zxcvbn': '^4.4.2'
 },
     'pwix:accounts-tools'
 );

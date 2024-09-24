@@ -42,6 +42,18 @@ AccountsTools.byEmail = async function( email, options={} ){
 
 /**
  * @locus Anywhere
+ * @param {String} id
+ * @param {Object} options an optional dictionary of fields to return or exclude
+ * @returns {Promise} which will eventually resolve to the cleanup user document, or null
+ */
+AccountsTools.byId = async function( email, options={} ){
+    check( email, String );
+    check( options, Object );
+    return await ( Meteor.isClient ? Meteor.callAsync( 'AccountsTools.byId', id, options ) : AccountsTools.server.byId( i, options ));
+}
+
+/**
+ * @locus Anywhere
  * @param {String} username
  * @param {Object} options an optional dictionary of fields to return or exclude
  * @returns {Promise} which will eventually resolve to the cleanup user document, or null

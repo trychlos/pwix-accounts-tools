@@ -26,3 +26,6 @@ AccountsTools.C = {
         FUNCTIONS:      0x01 << 3
     }
 };
+
+// non exported internal constant as i18n namespace
+I18N = 'pwix:accounts-tools:i18n'

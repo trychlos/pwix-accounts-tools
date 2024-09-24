@@ -28,13 +28,78 @@ The exported `AccountsTools` global object provides following items:
 
 #### Functions
 
-##### `AccountsTools.byEmail( email [, options] )`
+##### `AccountsTools.byEmail( email [, options ])`
 
 Returns a Promise which will resolve to the cleaned up document of the unique user which holds the provided email address, or null if none of several (which would be a bug anyway).
 
 `options` is an optional dictionary of fields to return or exclude.
 
 See also [findUserByEmail()](https://v3-docs.meteor.com/api/accounts.html#Accounts-findUserByEmail) Meteor function.
+
+##### `async AccountsTools.checkEmailAddress( email [, options ])`
+
+    The general rule is that email addresses can be used as user identifiers. We so generally want them be uniquely defined in the system. Default is to check against the standard Meteor `users` collection.
+
+    If the caller happens to wish other checks, or another collection,  or no check at all, or anything other than the above default, then it can provide functions and arguments which will be honored by the compliant packages.
+
+    Function accepts an `options` object with following keys:
+
+    - testEmpty: whether to test if the email address is set, defaulting to true
+    - testValid: whether to test if the email address is syntactically valid, defaulting to true
+    - testExists: whether to test if the email address already exists in the account system, defaulting to true
+
+    Function returns an object with following keys:
+
+    - `ok`
+    - `reason`
+    - `errors`
+    - `countOk`
+    - `countNotOk`
+    - `canonical`
+
+##### `async AccountsTools.checkPassword( password [, options ])`
+
+    The general rule is that usernames can be used as user identifiers. We so generally want them be uniquely defined in the system. Default is to check against the standard Meteor `users` collection.
+
+    If the caller happens to wish other checks, or another collection,  or no check at all, or anything other than the above default, then it can provide functions and arguments which will be honored by the compliant packages.
+
+    Function accepts an `options` object with following keys:
+
+    - testEmpty: whether to test if the password is set, defaulting to true
+    - testLength: whether to test for the length of the password, defaulting to true
+    - testComplexity: whether to test for the complexity of the password, defaulting to true
+
+    Function returns an object with following keys:
+
+    - `ok`
+    - `reason`
+    - `errors`
+    - `countOk`
+    - `countNotOk`
+    - `minScore`
+    - `zxcvbn`
+    - `canonical`
+
+##### `async AccountsTools.checkUsername( username [, options ])`
+
+    The general rule is that usernames can be used as user identifiers. We so generally want them be uniquely defined in the system. Default is to check against the standard Meteor `users` collection.
+
+    If the caller happens to wish other checks, or another collection,  or no check at all, or anything other than the above default, then it can provide functions and arguments which will be honored by the compliant packages.
+
+    Function accepts an `options` object with following keys:
+
+    - testEmpty: whether to test if the username is set, defaulting to true
+    - testLength: whether to test for the length of the username, defaulting to true
+    - testExists: whether to test if the username already exists in the account system, defaulting to true
+
+    Function returns an object with following keys:
+
+    - `ok`
+    - `reason`
+    - `errors`
+    - `countOk`
+    - `countNotOk`
+    - `canonical`
 
 ##### `AccountsTools.cleanupUserDocument( document )`
 
@@ -47,6 +112,12 @@ Note that, even if this method is published and available both on client and ser
 The configuration of the package.
 
 See [below](#configuration).
+
+##### `AccountsTools.i18n.namespace()`
+
+This method returns the `pwix:i18n` namespace of the `pwix:accounts-tools` package.
+
+With that name, anyone is so able to provide additional translations.
 
 ##### `AccountsTools.isEmailVerified( email [, user] )`
 
@@ -67,7 +138,9 @@ See `pwix:options` package for a full description of the `Options.Base` class.
 The function returns a Promise which will eventually resolve to the result object.
 
 The result object has following keys:
+
 - `label`: the computed preferred label
+
 - `origin`: the origin, which may be `ID` if the account has not been found, or `AccountsTools.C.PreferredLabel.USERNAME` or `AccountsTools.C.PreferredLabel.EMAIL_ADDRESS`.
 
 The application may have ask for either a username or an email address, or both.
@@ -184,6 +257,8 @@ Each of these dependencies should be installed at application level:
 ```
 
 ## Translations
+
+`pwix:accounts-tools` provides at the moment **fr** and **en** translations.
 
 New and updated translations are willingly accepted, and more than welcome. Just be kind enough to submit a PR on the [Github repository](https://github.com/trychlos/pwix-accounts-tools/pulls).
 

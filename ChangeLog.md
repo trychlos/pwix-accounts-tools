@@ -2,11 +2,11 @@
 
 ## ChangeLog
 
-### 2.2.1-rc
+### 2.3.0-rc
 
     Release date: 
 
-    - 
+    - Hosts email address, password and username check functions, thus bumping minor candidate version number
 
 ### 2.2.0
 
