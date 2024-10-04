@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 2.3.0-rc
+### 2.3.0
 
-    Release date: 
+    Release date: 2024-10- 4
 
     - Hosts email address, password and username check functions, thus bumping minor candidate version number
     - Mark this package obsolete
@@ -47,4 +47,4 @@
 
 ---
 P. Wieser
-- Last updated on 2024, Sep. 13th
+- Last updated on 2024, Oct. 4th
