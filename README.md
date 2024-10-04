@@ -8,6 +8,8 @@ _Note_: At the moment, we focus on the `Meteor.users` collection as created by `
 
 _Note_: According to [Accounts API](https://docs.meteor.com/api/accounts), "[...] an email address may belong to at most one user". According to [Passwords API](https://docs.meteor.com/api/passwords), "[...] if there are existing users with a username or email only differing in case, createUser will fail". We so consider in this package first, and more globally in our applications, that both the email address and the username can be used as a user account identifier.
 
+**Please note that, as of 2024-10-04, this package is obsoleted by new `[pwix-accounts-hub](https://github.com/trychlos/pwix-accounts-hub)`.**
+
 ## Installation
 
 This Meteor package is installable with the usual command:

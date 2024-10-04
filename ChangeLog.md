@@ -7,6 +7,7 @@
     Release date: 
 
     - Hosts email address, password and username check functions, thus bumping minor candidate version number
+    - Mark this package obsolete
 
 ### 2.2.0
 
